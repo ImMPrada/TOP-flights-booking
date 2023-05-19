@@ -18,6 +18,9 @@
 Airport.destroy_all
 City.destroy_all
 Country.destroy_all
+Flight.destroy_all
+DepartureFlight.destroy_all
+ArrivalFlight.destroy_all
 
 # Define airport data for each country
 countries = [

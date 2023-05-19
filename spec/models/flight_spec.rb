@@ -12,8 +12,8 @@ RSpec.describe Flight, type: :model do
     it { should belong_to(:airplane) }
     it { should have_many(:itinerary_flights) }
     it { should have_many(:itineraries).through(:itinerary_flights) }
-    it { should have_many(:deaperture_flights) }
-    it { should have_many(:deaperture_airports).through(:deaperture_flights).source(:airport) }
+    it { should have_many(:departure_flights) }
+    it { should have_many(:departure_airports).through(:departure_flights).source(:airport) }
     it { should have_many(:arrival_flights) }
     it { should have_many(:arrival_airports).through(:arrival_flights).source(:airport) }
   end

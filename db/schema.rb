@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_19_105119) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_19_220919) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -55,13 +55,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_19_105119) do
     t.index ["symbol"], name: "index_countries_on_symbol", unique: true
   end
 
-  create_table "deaperture_flights", force: :cascade do |t|
+  create_table "departure_flights", force: :cascade do |t|
     t.bigint "airport_id", null: false
     t.bigint "flight_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["airport_id"], name: "index_deaperture_flights_on_airport_id"
-    t.index ["flight_id"], name: "index_deaperture_flights_on_flight_id"
+    t.index ["airport_id"], name: "index_departure_flights_on_airport_id"
+    t.index ["flight_id"], name: "index_departure_flights_on_flight_id"
   end
 
   create_table "flights", force: :cascade do |t|
@@ -113,6 +113,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_19_105119) do
     t.index ["passenger_id"], name: "index_itinerary_passengers_on_passenger_id"
   end
 
+  create_table "passenger_seats", force: :cascade do |t|
+    t.bigint "passenger_id", null: false
+    t.bigint "seat_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["passenger_id"], name: "index_passenger_seats_on_passenger_id"
+    t.index ["seat_id"], name: "index_passenger_seats_on_seat_id"
+  end
+
   create_table "passengers", force: :cascade do |t|
     t.string "first_name", null: false
     t.string "last_name", null: false
@@ -126,15 +135,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_19_105119) do
     t.index ["user_id"], name: "index_passengers_on_user_id"
   end
 
-  create_table "slots", force: :cascade do |t|
+  create_table "seats", force: :cascade do |t|
     t.string "name", null: false
     t.string "available", default: "t", null: false
     t.float "price", null: false
     t.bigint "airplane_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["airplane_id"], name: "index_slots_on_airplane_id"
-    t.index ["name", "airplane_id"], name: "index_slots_on_name_and_airplane_id", unique: true
+    t.index ["airplane_id"], name: "index_seats_on_airplane_id"
+    t.index ["name", "airplane_id"], name: "index_seats_on_name_and_airplane_id", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -148,8 +157,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_19_105119) do
   add_foreign_key "arrival_flights", "airports"
   add_foreign_key "arrival_flights", "flights"
   add_foreign_key "cities", "countries"
-  add_foreign_key "deaperture_flights", "airports"
-  add_foreign_key "deaperture_flights", "flights"
+  add_foreign_key "departure_flights", "airports"
+  add_foreign_key "departure_flights", "flights"
   add_foreign_key "flights", "airplanes"
   add_foreign_key "invoices", "itineraries"
   add_foreign_key "invoices", "users"
@@ -157,6 +166,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_19_105119) do
   add_foreign_key "itinerary_flights", "itineraries"
   add_foreign_key "itinerary_passengers", "itineraries"
   add_foreign_key "itinerary_passengers", "passengers"
+  add_foreign_key "passenger_seats", "passengers"
+  add_foreign_key "passenger_seats", "seats"
   add_foreign_key "passengers", "users"
-  add_foreign_key "slots", "airplanes"
+  add_foreign_key "seats", "airplanes"
 end

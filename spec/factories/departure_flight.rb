@@ -1,6 +1,6 @@
 FactoryBot.define do
-  factory :deapeture_flight do
+  factory :departure_flight do
     association :airport
-    association :flight 
+    association :flight
   end
 end

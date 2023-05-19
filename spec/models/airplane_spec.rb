@@ -6,6 +6,6 @@ RSpec.describe Airplane, type: :model do
   end
 
   describe 'associations' do
-    it { should have_many(:slots) }
+    it { should have_many(:seats) }
   end
 end

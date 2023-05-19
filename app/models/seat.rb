@@ -1,4 +1,4 @@
-class Slot < ApplicationRecord
+class Seat < ApplicationRecord
   belongs_to :airplane
 
   validates :name, presence: true, uniqueness: { scope: :airplane_id }
