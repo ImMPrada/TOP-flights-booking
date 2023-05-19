@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_19_105135) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_19_105119) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -64,15 +64,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_19_105135) do
     t.index ["flight_id"], name: "index_deaperture_flights_on_flight_id"
   end
 
-  create_table "flight_invoices", force: :cascade do |t|
-    t.bigint "itinerary_id", null: false
-    t.bigint "invoice_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["invoice_id"], name: "index_flight_invoices_on_invoice_id"
-    t.index ["itinerary_id"], name: "index_flight_invoices_on_itinerary_id"
-  end
-
   create_table "flights", force: :cascade do |t|
     t.string "number", null: false
     t.datetime "departure_date", null: false
@@ -89,14 +80,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_19_105135) do
   create_table "invoices", force: :cascade do |t|
     t.float "total_amount", null: false
     t.boolean "paid", default: false, null: false
+    t.bigint "itinerary_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["itinerary_id"], name: "index_invoices_on_itinerary_id"
+    t.index ["user_id"], name: "index_invoices_on_user_id"
   end
 
   create_table "itineraries", force: :cascade do |t|
     t.string "number", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["number"], name: "index_itineraries_on_number", unique: true
   end
 
   create_table "itinerary_flights", force: :cascade do |t|
@@ -137,17 +133,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_19_105135) do
     t.bigint "airplane_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["airplane_id", "name"], name: "index_slots_on_airplane_id_and_name", unique: true
     t.index ["airplane_id"], name: "index_slots_on_airplane_id"
-  end
-
-  create_table "user_invoices", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "invoice_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["invoice_id"], name: "index_user_invoices_on_invoice_id"
-    t.index ["user_id"], name: "index_user_invoices_on_user_id"
+    t.index ["name", "airplane_id"], name: "index_slots_on_name_and_airplane_id", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -163,15 +150,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_19_105135) do
   add_foreign_key "cities", "countries"
   add_foreign_key "deaperture_flights", "airports"
   add_foreign_key "deaperture_flights", "flights"
-  add_foreign_key "flight_invoices", "invoices"
-  add_foreign_key "flight_invoices", "itineraries"
   add_foreign_key "flights", "airplanes"
+  add_foreign_key "invoices", "itineraries"
+  add_foreign_key "invoices", "users"
   add_foreign_key "itinerary_flights", "flights"
   add_foreign_key "itinerary_flights", "itineraries"
   add_foreign_key "itinerary_passengers", "itineraries"
   add_foreign_key "itinerary_passengers", "passengers"
   add_foreign_key "passengers", "users"
   add_foreign_key "slots", "airplanes"
-  add_foreign_key "user_invoices", "invoices"
-  add_foreign_key "user_invoices", "users"
 end

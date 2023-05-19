@@ -7,5 +7,7 @@ RSpec.describe User, type: :model do
 
   describe 'associations' do
     it { should have_one(:passenger) }
+    it { should have_many(:invoices) }
+    it { should have_many(:itineraries).through(:invoices) }
   end
 end

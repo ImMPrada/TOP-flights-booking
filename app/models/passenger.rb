@@ -5,6 +5,6 @@ class Passenger < ApplicationRecord
 
   validates :first_name, presence: true
   validates :last_name, presence: true
-  validates :pin, presence: true
+  validates :pin, presence: true, uniqueness: { case_sensitive: false }
   validates :email, presence: true, uniqueness: { case_sensitive: false }
 end
