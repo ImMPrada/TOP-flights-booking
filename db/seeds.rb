@@ -21,6 +21,8 @@ Country.destroy_all
 Flight.destroy_all
 DepartureFlight.destroy_all
 ArrivalFlight.destroy_all
+Airplane.destroy_all
+Seat.destroy_all
 
 # Define airport data for each country
 countries = [
@@ -104,13 +106,38 @@ countries = [
   }
 ]
 
-# Create countries, cities, and airports
 countries.each do |country_data|
   country = Country.create!(name: country_data[:name], symbol: country_data[:symbol])
   country_data[:cities].each do |city_data|
     city = country.cities.create!(name: city_data[:name])
     city_data[:airports].each do |airport_name|
       city.airports.create!(name: airport_name)
+    end
+  end
+end
+
+airplane_models = %w[
+  Boeing502
+  Airbus A320
+  Embraer E175
+  Bombardier CRJ900
+  Boeing502
+  Airbus A320
+  Embraer E175
+  Bombardier CRJ900
+]
+
+airplane_models.each do |model|
+  airplane = Airplane.create!(model:)
+
+  %w[A B E F].each do |row|
+    (1..30).each do |number|
+      seat_name = "#{row}#{number}"
+      Seat.create!(
+        name: seat_name,
+        airplane:,
+        price: rand(100.0..500.0),
+      )
     end
   end
 end
