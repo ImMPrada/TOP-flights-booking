@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_18_004029) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_18_000758) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -79,13 +79,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_18_004029) do
   create_table "passenger_flights", force: :cascade do |t|
     t.bigint "passenger_id", null: false
     t.bigint "flight_id", null: false
-    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["flight_id"], name: "index_passenger_flights_on_flight_id"
     t.index ["passenger_id"], name: "index_passenger_flights_on_passenger_id"
-    t.index ["user_id", "flight_id"], name: "index_passenger_flights_on_user_id_and_flight_id"
-    t.index ["user_id"], name: "index_passenger_flights_on_user_id"
   end
 
   create_table "passengers", force: :cascade do |t|
@@ -127,7 +124,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_18_004029) do
   add_foreign_key "flights", "airplanes"
   add_foreign_key "passenger_flights", "flights"
   add_foreign_key "passenger_flights", "passengers"
-  add_foreign_key "passenger_flights", "users"
   add_foreign_key "passengers", "users"
   add_foreign_key "slots", "airplanes"
 end
