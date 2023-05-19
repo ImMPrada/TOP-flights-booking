@@ -9,8 +9,16 @@ RSpec.describe Passenger, type: :model do
   end
 
   describe 'associations' do
-    it { should belong_to(:user) }
-    it { should have_many(:passenger_flights) }
-    it { should have_many(:flights).through(:passenger_flights) }
+    it { should belong_to(:user).optional }
+    it { should have_many(:itinerary_passengers) }
+    it { should have_many(:itineraries).through(:itinerary_passengers) }
+  end
+
+  describe 'when passenger is a user' do
+    let(:passenger) { create(:passenger, :is_user) }
+
+    it 'should have a user' do
+      expect(passenger.user).to be_a(User)
+    end
   end
 end

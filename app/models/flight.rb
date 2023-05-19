@@ -1,7 +1,7 @@
 class Flight < ApplicationRecord
   belongs_to :airplane
-  has_many :passenger_flights, dependent: :destroy
-  has_many :passengers, through: :passenger_flights
+  has_many :itinerary_flights
+  has_many :itineraries, through: :itinerary_flights
   has_many :deaperture_flights, dependent: :destroy
   has_many :deaperture_airports, through: :deaperture_flights, source: :airport
   has_many :arrival_flights, dependent: :destroy
