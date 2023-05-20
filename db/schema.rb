@@ -28,15 +28,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_19_220919) do
     t.index ["city_id"], name: "index_airports_on_city_id"
   end
 
-  create_table "arrival_flights", force: :cascade do |t|
-    t.bigint "airport_id", null: false
-    t.bigint "flight_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["airport_id"], name: "index_arrival_flights_on_airport_id"
-    t.index ["flight_id"], name: "index_arrival_flights_on_flight_id"
-  end
-
   create_table "cities", force: :cascade do |t|
     t.string "name", null: false
     t.bigint "country_id", null: false
@@ -55,15 +46,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_19_220919) do
     t.index ["symbol"], name: "index_countries_on_symbol", unique: true
   end
 
-  create_table "departure_flights", force: :cascade do |t|
-    t.bigint "airport_id", null: false
-    t.bigint "flight_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["airport_id"], name: "index_departure_flights_on_airport_id"
-    t.index ["flight_id"], name: "index_departure_flights_on_flight_id"
-  end
-
   create_table "flights", force: :cascade do |t|
     t.string "number", null: false
     t.datetime "departure_date", null: false
@@ -71,9 +53,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_19_220919) do
     t.float "price", null: false
     t.boolean "available", default: true, null: false
     t.bigint "airplane_id", null: false
+    t.bigint "departure_airport_id", null: false
+    t.bigint "arrival_airport_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["airplane_id"], name: "index_flights_on_airplane_id"
+    t.index ["arrival_airport_id"], name: "index_flights_on_arrival_airport_id"
+    t.index ["departure_airport_id"], name: "index_flights_on_departure_airport_id"
     t.index ["number"], name: "index_flights_on_number", unique: true
   end
 
@@ -154,12 +140,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_19_220919) do
   end
 
   add_foreign_key "airports", "cities"
-  add_foreign_key "arrival_flights", "airports"
-  add_foreign_key "arrival_flights", "flights"
   add_foreign_key "cities", "countries"
-  add_foreign_key "departure_flights", "airports"
-  add_foreign_key "departure_flights", "flights"
   add_foreign_key "flights", "airplanes"
+  add_foreign_key "flights", "airports", column: "arrival_airport_id"
+  add_foreign_key "flights", "airports", column: "departure_airport_id"
   add_foreign_key "invoices", "itineraries"
   add_foreign_key "invoices", "users"
   add_foreign_key "itinerary_flights", "flights"

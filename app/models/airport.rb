@@ -1,9 +1,7 @@
 class Airport < ApplicationRecord
   belongs_to :city
-  has_many :departure_flights, dependent: :destroy
-  has_many :departures, through: :departure_flights, source: :flight
-  has_many :arrival_flights, dependent: :destroy
-  has_many :arrivals, through: :arrival_flights, source: :flight
+  has_many :departure_flights, foreign_key: :departure_airport_id, class_name: 'Flight'
+  has_many :arrival_flights, foreign_key: :arrival_airport_id, class_name: 'Flight'
 
   validates :name, presence: true
 end

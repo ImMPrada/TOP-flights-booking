@@ -10,11 +10,9 @@ RSpec.describe Flight, type: :model do
 
   describe 'associations' do
     it { should belong_to(:airplane) }
+    it { should belong_to(:departure_airport).class_name('Airport') }
+    it { should belong_to(:arrival_airport).class_name('Airport') }
     it { should have_many(:itinerary_flights) }
     it { should have_many(:itineraries).through(:itinerary_flights) }
-    it { should have_many(:departure_flights) }
-    it { should have_many(:departure_airports).through(:departure_flights).source(:airport) }
-    it { should have_many(:arrival_flights) }
-    it { should have_many(:arrival_airports).through(:arrival_flights).source(:airport) }
   end
 end

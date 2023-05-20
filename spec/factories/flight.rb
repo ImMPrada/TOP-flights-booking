@@ -6,5 +6,7 @@ FactoryBot.define do
     price { Faker::Number.decimal(l_digits: 2) }
 
     association :airplane
+    association :departure_airport, factory: :airport
+    association :arrival_airport, factory: :airport
   end
 end
