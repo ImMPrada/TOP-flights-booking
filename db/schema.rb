@@ -67,18 +67,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_19_220919) do
     t.float "total_amount", null: false
     t.boolean "paid", default: false, null: false
     t.bigint "itinerary_id", null: false
-    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["itinerary_id"], name: "index_invoices_on_itinerary_id"
-    t.index ["user_id"], name: "index_invoices_on_user_id"
   end
 
   create_table "itineraries", force: :cascade do |t|
     t.string "number", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["number"], name: "index_itineraries_on_number", unique: true
+    t.index ["user_id"], name: "index_itineraries_on_user_id"
   end
 
   create_table "itinerary_flights", force: :cascade do |t|
@@ -145,7 +145,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_19_220919) do
   add_foreign_key "flights", "airports", column: "arrival_airport_id"
   add_foreign_key "flights", "airports", column: "departure_airport_id"
   add_foreign_key "invoices", "itineraries"
-  add_foreign_key "invoices", "users"
+  add_foreign_key "itineraries", "users"
   add_foreign_key "itinerary_flights", "flights"
   add_foreign_key "itinerary_flights", "itineraries"
   add_foreign_key "itinerary_passengers", "itineraries"

@@ -9,5 +9,6 @@ RSpec.describe Itinerary, type: :model do
     it { should have_many(:itinerary_flights) }
     it { should have_many(:flights).through(:itinerary_flights) }
     it { should have_one(:invoice) }
+    it { should belong_to(:user) }
   end
 end

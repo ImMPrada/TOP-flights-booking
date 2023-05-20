@@ -5,7 +5,6 @@ class CreateInvoices < ActiveRecord::Migration[7.0]
       t.boolean :paid, null: false, default: false
 
       t.references :itinerary, null: false, foreign_key: true
-      t.references :user, null: false, foreign_key: true
 
       t.timestamps
     end

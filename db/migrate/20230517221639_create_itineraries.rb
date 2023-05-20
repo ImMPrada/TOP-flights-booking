@@ -3,6 +3,8 @@ class CreateItineraries < ActiveRecord::Migration[7.0]
     create_table :itineraries do |t|
       t.string :number, null: false, index: { unique: true }
 
+      t.references :user, null: false, foreign_key: true
+
       t.timestamps
     end
   end
