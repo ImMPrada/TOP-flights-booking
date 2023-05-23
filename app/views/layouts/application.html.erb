@@ -12,9 +12,19 @@
   </head>
 
   <body>
-    <main class="container mx-auto mt-28 px-5 flex">
+    <div class="min-w-full sticky h-10">
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>
+    </div>
+    <main class="container mx-auto mt-28 px-5 flex flex-col">
+      <div>
+        <% if user_signed_in? %>
+          <%= link_to "Sign out", destroy_user_session_path, data: { turbo_method: :delete } %>
+        <% else %>
+          <%= link_to "Sign in", user_session_path %>
+          <%= link_to "Sign up", new_user_registration_path %>
+        <% end %>
+      </div>
       <%= yield %>
     </main>
   </body>
