@@ -4,7 +4,7 @@ RSpec.describe Passenger, type: :model do
   describe 'validations' do
     it { should validate_presence_of(:first_name) }
     it { should validate_presence_of(:last_name) }
-    it { should validate_presence_of(:pin) }
+    it { should validate_presence_of(:identification_number) }
     it { should validate_presence_of(:email) }
   end
 
