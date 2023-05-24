@@ -1,24 +1,25 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Local Setup Instructions
 
-Things you may want to cover:
+Clone the repo
+`git clone git@github.com:ImMPrada/TOP-flights-booking.git`
+Install ruby. rbenv is recommended
+`rbenv install 3.2.2`
 
-* Ruby version
+Install ruby dependencies
+`bundle install`
 
-* System dependencies
+Set up the DB
+`rails db:create`
+`rails db:migrate`
+please run the seeds, to have some basic db data
+`rails db:seed`
 
-* Configuration
+Build tailwind styles:
+`rails tailwindcss:build`
+or instead of that, you can observe changes you make to styles with:
+`rails tailwindcss:watch`
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Start a server:
+`rails s`
