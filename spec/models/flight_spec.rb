@@ -14,5 +14,7 @@ RSpec.describe Flight, type: :model do
     it { should belong_to(:arrival_airport).class_name('Airport') }
     it { should have_many(:itinerary_flights) }
     it { should have_many(:itineraries).through(:itinerary_flights) }
+    it { should have_one(:departure_city).through(:departure_airport).source(:city) }
+    it { should have_one(:arrival_city).through(:arrival_airport).source(:city) }
   end
 end

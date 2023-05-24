@@ -1,1 +1,24 @@
 flights#index
+
+<div class="min-w-full felx felx-col">
+  <% @flights.each do |flight| %>
+    <div class="min-w-full felx justify-between">
+      <div class="w-1/2 felx felx-col">
+        <span class="block">
+          <%= flight.number %>
+        </span>
+        <span class="block">
+          <%= flight.price %>
+        </span>
+      </div>
+      <div class="w-1/2 felx felx-col">
+        <span class="block">
+          <%= flight.departure_airport.name %>
+        </span>
+        <span class="block">
+          <%= flight.arrival_airport.name %>
+        </span>
+      </div>
+    </div>
+  <% end %>
+</div>
