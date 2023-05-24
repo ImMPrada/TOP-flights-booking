@@ -4,4 +4,6 @@ class Seat < ApplicationRecord
   validates :name, presence: true, uniqueness: { scope: :airplane_id }
   validates :available, presence: true
   validates :price, presence: true
+
+  scope :availables, -> { where(available: true) }
 end
