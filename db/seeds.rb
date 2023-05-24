@@ -134,8 +134,34 @@ airplane_models.each do |model|
       Seat.create!(
         name: seat_name,
         airplane:,
-        price: rand(100.0..500.0),
+        price: rand(100.0..500.0)
       )
     end
   end
+end
+
+airplane = Airplane.first
+
+bogota = City.find_by(name: 'Bogota').airports.sample
+bucaramanga = City.find_by(name: 'Bucaramanga').airports.sample
+medellin = City.find_by(name: 'Medellin').airports.sample
+cartagena = City.find_by(name: 'Cartagena').airports.sample
+cali = City.find_by(name: 'Cali').airports.sample
+barranquilla = City.find_by(name: 'Barranquilla').airports.sample
+pasto = City.find_by(name: 'Pasto').airports.sample
+valledupar = City.find_by(name: 'Valledupar').airports.sample
+
+flights_data = [
+  { number: 'F001', departure_date: DateTime.now + 1.day, arrival_date: DateTime.now + 1.day + 1.hour, price: 150.0, available: true, departure_airport: bogota, arrival_airport: bucaramanga },
+  { number: 'F002', departure_date: DateTime.now + 1.day + 2.hours, arrival_date: DateTime.now + 1.day + 4.hours, price: 200.0, available: true, departure_airport: bucaramanga, arrival_airport: medellin },
+  { number: 'F003', departure_date: DateTime.now + 1.day + 7.hours, arrival_date: DateTime.now + 1.day + 10.hours, price: 180.0, available: true, departure_airport: medellin, arrival_airport: cartagena },
+  { number: 'F004', departure_date: DateTime.now + 1.day + 14.hours, arrival_date: DateTime.now + 1.day + 18.hours, price: 220.0, available: true, departure_airport: cartagena, arrival_airport: cali },
+  { number: 'F005', departure_date: DateTime.now + 1.day + 23.hours, arrival_date: DateTime.now + 1.day + 28.hours, price: 190.0, available: true, departure_airport: cali, arrival_airport: barranquilla },
+  { number: 'F006', departure_date: DateTime.now + 1.day + 34.hours, arrival_date: DateTime.now + 1.day + 40.hours, price: 210.0, available: true, departure_airport: barranquilla, arrival_airport: pasto },
+  { number: 'F007', departure_date: DateTime.now + 1.day + 47.hours, arrival_date: DateTime.now + 1.day + 54.hours, price: 230.0, available: true, departure_airport: pasto, arrival_airport: valledupar },
+  { number: 'F008', departure_date: DateTime.now + 1.day + 62.hours, arrival_date: DateTime.now + 1.day + 70.hours, price: 180.0, available: true, departure_airport: valledupar, arrival_airport: bogota }
+]
+
+flights_data.each do |flight_data|
+  Flight.create(flight_data.merge(airplane: airplane))
 end
