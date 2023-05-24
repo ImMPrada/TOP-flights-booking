@@ -1,23 +1,51 @@
 flights#index
 
-<div class="min-w-full felx felx-col">
-  <% @flights.each do |flight| %>
-    <div class="min-w-full felx justify-between">
-      <div class="w-1/2 felx felx-col">
-        <span class="block">
-          <%= flight.number %>
-        </span>
-        <span class="block">
-          <%= flight.price %>
-        </span>
+<%= form_for(:search_flights_for, url: filter_flights_path, method: :post) do |f| %>
+  <div class="min-w-full flex flex-col gap-4 mt-6">
+    <div class="min-w-full flex gap-4">
+      <div class="w-1/2 flex flex-col gap-2">
+        <%= f.label :departure_city_id %>
+        <%= f.select :departure_city_id, City.all_cities_with_country_symbol.map {|city| ["#{city.name} (#{city.country_symbol})", city.id]}, { prompt: 'Select daperture city' }, { class: 'w-full' } %>
+        <%= f.label :departure_date %>
+        <%= f.date_field :departure_date, class: 'w-full' %>
       </div>
-      <div class="w-1/2 felx felx-col">
-        <span class="block">
-          <%= flight.departure_airport.name %>
-        </span>
-        <span class="block">
-          <%= flight.arrival_airport.name %>
-        </span>
+      <div class="w-1/2 flex flex-col gap-2">
+        <%= f.label :arrival_city_id %>
+        <%= f.select :arrival_city_id, City.all_cities_with_country_symbol.map {|city| ["#{city.name} (#{city.country_symbol})", city.id]}, { prompt: 'Select arrival city' }, { class: 'w-full' } %>
+        <%= f.label :return_date %>
+        <%= f.date_field :return_date, class: 'w-full' %>
+      </div>
+    </div>
+    <div class="min-w-full">
+      <%= f.label :passengers %>
+      <%= f.number_field :passengers, class: 'w-full' %>
+    </div>
+    <div class="min-w-full">
+      <%= f.submit 'Search', class: 'w-full' %>
+    </div>
+<% end %>
+
+<div id="flights-index-list" class="min-w-full flex flex-col gap-4 mt-6">
+  <% @flights.each do |flight| %>
+    <div class="min-w-full">
+      <%= flight.departure_city.name %> to <%= flight.arrival_city.name %>
+      <div class="min-w-full flex justify-between">
+        <div class="w-1/3 flex flex-col">
+          <span class="block">
+            fligth number: <%= flight.number %>
+          </span>
+          <span class="block">
+            price: <%= flight.price %>
+          </span>
+        </div>
+        <div class="w-2/3 flex flex-col">
+          <span class="block">
+            daperture airport: <%= flight.departure_airport.name %> | daperture date: <%= flight.departure_date %>
+          </span>
+          <span class="block">
+            arrival airport: <%= flight.arrival_airport.name %> | arrival date: <%= flight.arrival_date %>
+          </span>
+        </div>
       </div>
     </div>
   <% end %>
