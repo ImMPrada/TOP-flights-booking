@@ -3,23 +3,40 @@
 ## Local Setup Instructions
 
 Clone the repo
-`git clone git@github.com:ImMPrada/TOP-flights-booking.git`
+```bash
+git clone git@github.com:ImMPrada/TOP-flights-booking.git
+```
+
 Install ruby. rbenv is recommended
-`rbenv install 3.2.2`
+```bash
+rbenv install 3.2.2
+```
 
 Install ruby dependencies
-`bundle install`
+```bash
+bundle install
+```
 
 Set up the DB
-`rails db:create`
-`rails db:migrate`
+```bash
+rails db:create
+rails db:migrate
+```
 please run the seeds, to have some basic db data
-`rails db:seed`
+```bash
+rails db:seed
+```
 
 Build tailwind styles:
-`rails tailwindcss:build`
+```bash
+rails tailwindcss:build
+```
 or instead of that, you can observe changes you make to styles with:
-`rails tailwindcss:watch`
+```bash
+rails tailwindcss:watch
+```
 
 Start a server:
-`rails s`
+```bash
+rails s
+```
