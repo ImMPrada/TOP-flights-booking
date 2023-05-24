@@ -6,19 +6,15 @@ flights#index
       <div class="w-1/2 flex flex-col gap-2">
         <%= f.label :departure_city_id %>
         <%= f.select :departure_city_id, City.all_cities_with_country_symbol.map {|city| ["#{city.name} (#{city.country_symbol})", city.id]}, { prompt: 'Select daperture city' }, { class: 'w-full' } %>
-        <%= f.label :departure_date %>
-        <%= f.date_field :departure_date, class: 'w-full' %>
       </div>
       <div class="w-1/2 flex flex-col gap-2">
         <%= f.label :arrival_city_id %>
         <%= f.select :arrival_city_id, City.all_cities_with_country_symbol.map {|city| ["#{city.name} (#{city.country_symbol})", city.id]}, { prompt: 'Select arrival city' }, { class: 'w-full' } %>
-        <%= f.label :return_date %>
-        <%= f.date_field :return_date, class: 'w-full' %>
       </div>
     </div>
-    <div class="min-w-full">
-      <%= f.label :passengers %>
-      <%= f.number_field :passengers, class: 'w-full' %>
+    <div class="w-full flex flex-col gap-2">
+      <%= f.label :departure_date %>
+      <%= f.date_field :departure_date, class: 'w-full' %>
     </div>
     <div class="min-w-full">
       <%= f.submit 'Search', class: 'w-full' %>

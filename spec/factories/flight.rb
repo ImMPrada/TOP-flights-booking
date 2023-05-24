@@ -8,5 +8,7 @@ FactoryBot.define do
     association :airplane
     association :departure_airport, factory: :airport
     association :arrival_airport, factory: :airport
+    association :departure_city, factory: :city
+    association :arrival_city, factory: :city
   end
 end
