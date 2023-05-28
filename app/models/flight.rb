@@ -12,7 +12,7 @@ class Flight < ApplicationRecord
   validates :arrival_date, presence: true
   validates :price, presence: true
 
-  scope :availables, -> { where(available: true) }
+  scope :availables, -> { where('available = ? AND departure_date >= ?', true, Date.today + 4.hours) }
   scope :by_departure_date, ->(date) { where('departure_date >= ? AND departure_date < ?', date, date + 1.day) }
   scope :by_departure_city, ->(departure_city_id) { where(departure_city_id:) }
   scope :by_arrival_city, ->(arrival_city_id) { where(arrival_city_id:) }
@@ -28,7 +28,7 @@ class Flight < ApplicationRecord
     flights
   end
 
-  def self.available_seats
+  def available_seats
     airplane.seats.availables
   end
 end
