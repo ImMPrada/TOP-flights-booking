@@ -1,1 +1,42 @@
 flights#index
+
+<%= form_with(url: flights_path, method: :get) do |f| %>
+  <div class="min-w-full flex flex-col gap-4 mt-6">
+    <div class="min-w-full flex gap-4">
+      <div class="w-1/2 flex flex-col gap-2">
+        <%= f.label :departure_city_id %>
+        <%= f.select(
+          :departure_city_id,
+          City.all_cities_with_country_symbol.map {|city| ["#{city.name} (#{city.country_symbol})", city.id]},
+          { prompt: 'Select daperture city', selected: params[:departure_city_id] }, { class: 'w-full' }
+        ) %>
+      </div>
+      <div class="w-1/2 flex flex-col gap-2">
+        <%= f.label :arrival_city_id %>
+        <%= f.select(
+          :arrival_city_id,
+          City.all_cities_with_country_symbol.map {|city| ["#{city.name} (#{city.country_symbol})", city.id]},
+          { prompt: 'Select arrival city' }, { class: 'w-full' }
+        ) %>
+      </div>
+    </div>
+    <div class="w-full flex flex-col gap-2">
+      <%= f.label :departure_date %>
+      <%= f.date_field(
+        :departure_date,
+        class: 'w-full',
+        value: params[:departure_date]
+      ) %>
+    </div>
+    <div class="min-w-full">
+      <%= f.submit 'Search', class: 'w-full' %>
+    </div>
+<% end %>
+
+<div class="min-w-full">
+  <%= link_to "Clear filter", flights_path, class: 'w-full' %>
+</div>
+
+<div id="flights-index-list" class="min-w-full flex flex-col gap-4 mt-6">
+  <%= render partial: 'partials/flights/list', locals: { flights: @flights } %>
+</div>

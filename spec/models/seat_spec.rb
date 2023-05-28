@@ -31,4 +31,15 @@ RSpec.describe Seat, type: :model do
       end
     end
   end
+
+  describe 'scopes' do
+    describe '.availables' do
+      let(:available_seat) { create(:seat, available: true) }
+      let(:unavailable_seat) { create(:seat, available: false) }
+
+      it 'should return only available seats' do
+        expect(Seat.availables).to eq([available_seat])
+      end
+    end
+  end
 end

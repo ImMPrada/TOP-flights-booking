@@ -15,10 +15,10 @@
 # seed.rb
 
 # Destroy all existing records
+Flight.destroy_all
 Airport.destroy_all
 City.destroy_all
 Country.destroy_all
-Flight.destroy_all
 Airplane.destroy_all
 Seat.destroy_all
 
@@ -134,8 +134,415 @@ airplane_models.each do |model|
       Seat.create!(
         name: seat_name,
         airplane:,
-        price: rand(100.0..500.0),
+        price: rand(100.0..500.0)
       )
     end
   end
+end
+
+airplane = Airplane.first
+
+bogota = City.find_by(name: 'Bogota')
+bucaramanga = City.find_by(name: 'Bucaramanga')
+medellin = City.find_by(name: 'Medellin')
+cartagena = City.find_by(name: 'Cartagena')
+cali = City.find_by(name: 'Cali')
+barranquilla = City.find_by(name: 'Barranquilla')
+pasto = City.find_by(name: 'Pasto')
+
+initial_date = DateTime.now + 1.day
+
+flights_data = [
+  { number: 'F002', departure_date: initial_date + 2.hours, arrival_date: initial_date + 4.hours, price: 200.0,
+    available: true, departure_airport: bogota.airports.sample, arrival_airport: bucaramanga.airports.sample,
+    departure_city: bogota, arrival_city: bucaramanga },
+  { number: 'F003', departure_date: initial_date + 7.hours, arrival_date: initial_date + 10.hours, price: 180.0,
+    available: true, departure_airport: bucaramanga.airports.sample, arrival_airport: medellin.airports.sample,
+    departure_city: bucaramanga, arrival_city: medellin },
+  { number: 'F004', departure_date: initial_date + 14.hours, arrival_date: initial_date + 18.hours, price: 220.0,
+    available: true, departure_airport: medellin.airports.sample, arrival_airport: cartagena.airports.sample,
+    departure_city: medellin, arrival_city: cartagena },  
+  { number: 'F005', departure_date: initial_date + 23.hours, arrival_date: initial_date + 28.hours, price: 190.0,
+    available: true, departure_airport: cartagena.airports.sample, arrival_airport: cali.airports.sample,
+    departure_city: cartagena, arrival_city: cali },
+  { number: 'F006', departure_date: initial_date + 34.hours, arrival_date: initial_date + 40.hours, price: 210.0,
+    available: true, departure_airport: cali.airports.sample, arrival_airport: barranquilla.airports.sample,
+    departure_city: cali, arrival_city: barranquilla },
+  { number: 'F007', departure_date: initial_date + 47.hours, arrival_date: initial_date + 54.hours, price: 230.0,
+    available: true, departure_airport: barranquilla.airports.sample, arrival_airport: pasto.airports.sample,
+    departure_city: barranquilla, arrival_city: pasto }
+]
+
+flights_data.each do |flight_data|
+  Flight.create!(flight_data.merge(airplane:))
+end
+
+airplane = Airplane.second
+
+bogota = City.find_by(name: 'Bogota')
+bucaramanga = City.find_by(name: 'Bucaramanga')
+medellin = City.find_by(name: 'Medellin')
+cartagena = City.find_by(name: 'Cartagena')
+cali = City.find_by(name: 'Cali')
+barranquilla = City.find_by(name: 'Barranquilla')
+pasto = City.find_by(name: 'Pasto')
+
+initial_date = DateTime.now
+
+flights_data = [
+  { number: 'F102', departure_date: initial_date + 2.hours, arrival_date: initial_date + 4.hours, price: 200.0,
+    available: true, departure_airport: bogota.airports.sample, arrival_airport: bucaramanga.airports.sample,
+    departure_city: bogota, arrival_city: bucaramanga },
+  { number: 'F103', departure_date: initial_date + 7.hours, arrival_date: initial_date + 10.hours, price: 180.0,
+    available: true, departure_airport: bucaramanga.airports.sample, arrival_airport: medellin.airports.sample,
+    departure_city: bucaramanga, arrival_city: medellin },
+  { number: 'F104', departure_date: initial_date + 14.hours, arrival_date: initial_date + 18.hours, price: 220.0,
+    available: true, departure_airport: medellin.airports.sample, arrival_airport: cartagena.airports.sample,
+    departure_city: medellin, arrival_city: cartagena },  
+  { number: 'F105', departure_date: initial_date + 23.hours, arrival_date: initial_date + 28.hours, price: 190.0,
+    available: true, departure_airport: cartagena.airports.sample, arrival_airport: cali.airports.sample,
+    departure_city: cartagena, arrival_city: cali },
+  { number: 'F106', departure_date: initial_date + 34.hours, arrival_date: initial_date + 40.hours, price: 210.0,
+    available: true, departure_airport: cali.airports.sample, arrival_airport: barranquilla.airports.sample,
+    departure_city: cali, arrival_city: barranquilla },
+  { number: 'F107', departure_date: initial_date + 47.hours, arrival_date: initial_date + 54.hours, price: 230.0,
+    available: true, departure_airport: barranquilla.airports.sample, arrival_airport: pasto.airports.sample,
+    departure_city: barranquilla, arrival_city: pasto }
+]
+
+flights_data.each do |flight_data|
+  Flight.create!(flight_data.merge(airplane:))
+end
+
+airplane = Airplane.third
+
+bogota = City.find_by(name: 'Bogota')
+bucaramanga = City.find_by(name: 'Bucaramanga')
+medellin = City.find_by(name: 'Medellin')
+cartagena = City.find_by(name: 'Cartagena')
+cali = City.find_by(name: 'Cali')
+barranquilla = City.find_by(name: 'Barranquilla')
+pasto = City.find_by(name: 'Pasto')
+
+initial_date = DateTime.now + 5.hours
+
+flights_data = [
+  { number: 'F202', departure_date: initial_date + 2.hours, arrival_date: initial_date + 4.hours, price: 200.0,
+    available: true, departure_airport: bogota.airports.sample, arrival_airport: bucaramanga.airports.sample,
+    departure_city: bogota, arrival_city: bucaramanga },
+  { number: 'F203', departure_date: initial_date + 7.hours, arrival_date: initial_date + 10.hours, price: 180.0,
+    available: true, departure_airport: bucaramanga.airports.sample, arrival_airport: medellin.airports.sample,
+    departure_city: bucaramanga, arrival_city: medellin },
+  { number: 'F204', departure_date: initial_date + 14.hours, arrival_date: initial_date + 18.hours, price: 220.0,
+    available: true, departure_airport: medellin.airports.sample, arrival_airport: cartagena.airports.sample,
+    departure_city: medellin, arrival_city: cartagena },  
+  { number: 'F205', departure_date: initial_date + 23.hours, arrival_date: initial_date + 28.hours, price: 190.0,
+    available: true, departure_airport: cartagena.airports.sample, arrival_airport: cali.airports.sample,
+    departure_city: cartagena, arrival_city: cali },
+  { number: 'F206', departure_date: initial_date + 34.hours, arrival_date: initial_date + 40.hours, price: 210.0,
+    available: true, departure_airport: cali.airports.sample, arrival_airport: barranquilla.airports.sample,
+    departure_city: cali, arrival_city: barranquilla },
+  { number: 'F207', departure_date: initial_date + 47.hours, arrival_date: initial_date + 54.hours, price: 230.0,
+    available: true, departure_airport: barranquilla.airports.sample, arrival_airport: pasto.airports.sample,
+    departure_city: barranquilla, arrival_city: pasto }
+]
+
+flights_data.each do |flight_data|
+  Flight.create!(flight_data.merge(airplane:))
+end
+
+airplane = Airplane.fourth
+
+bogota = City.find_by(name: 'Bogota')
+bucaramanga = City.find_by(name: 'Bucaramanga')
+medellin = City.find_by(name: 'Medellin')
+cartagena = City.find_by(name: 'Cartagena')
+cali = City.find_by(name: 'Cali')
+barranquilla = City.find_by(name: 'Barranquilla')
+pasto = City.find_by(name: 'Pasto')
+
+initial_date = DateTime.now + 8.hours
+
+flights_data = [
+  { number: 'F302', departure_date: initial_date + 2.hours, arrival_date: initial_date + 4.hours, price: 200.0,
+    available: true, departure_airport: bogota.airports.sample, arrival_airport: bucaramanga.airports.sample,
+    departure_city: bogota, arrival_city: bucaramanga },
+  { number: 'F303', departure_date: initial_date + 7.hours, arrival_date: initial_date + 10.hours, price: 180.0,
+    available: true, departure_airport: bucaramanga.airports.sample, arrival_airport: medellin.airports.sample,
+    departure_city: bucaramanga, arrival_city: medellin },
+  { number: 'F304', departure_date: initial_date + 14.hours, arrival_date: initial_date + 18.hours, price: 220.0,
+    available: true, departure_airport: medellin.airports.sample, arrival_airport: cartagena.airports.sample,
+    departure_city: medellin, arrival_city: cartagena },  
+  { number: 'F305', departure_date: initial_date + 23.hours, arrival_date: initial_date + 28.hours, price: 190.0,
+    available: true, departure_airport: cartagena.airports.sample, arrival_airport: cali.airports.sample,
+    departure_city: cartagena, arrival_city: cali },
+  { number: 'F306', departure_date: initial_date + 34.hours, arrival_date: initial_date + 40.hours, price: 210.0,
+    available: true, departure_airport: cali.airports.sample, arrival_airport: barranquilla.airports.sample,
+    departure_city: cali, arrival_city: barranquilla },
+  { number: 'F307', departure_date: initial_date + 47.hours, arrival_date: initial_date + 54.hours, price: 230.0,
+    available: true, departure_airport: barranquilla.airports.sample, arrival_airport: pasto.airports.sample,
+    departure_city: barranquilla, arrival_city: pasto }
+]
+
+flights_data.each do |flight_data|
+  Flight.create!(flight_data.merge(airplane:))
+end
+
+airplane = Airplane.first
+
+bogota = City.find_by(name: 'Bogota')
+bucaramanga = City.find_by(name: 'Bucaramanga')
+medellin = City.find_by(name: 'Medellin')
+cartagena = City.find_by(name: 'Cartagena')
+cali = City.find_by(name: 'Cali')
+barranquilla = City.find_by(name: 'Barranquilla')
+pasto = City.find_by(name: 'Pasto')
+
+initial_date = DateTime.now + 1.day + 8.hours
+
+flights_data = [
+  { number: 'F402', departure_date: initial_date + 2.hours, arrival_date: initial_date + 4.hours, price: 200.0,
+    available: true, departure_airport: bogota.airports.sample, arrival_airport: bucaramanga.airports.sample,
+    departure_city: bogota, arrival_city: bucaramanga },
+  { number: 'F403', departure_date: initial_date + 7.hours, arrival_date: initial_date + 10.hours, price: 180.0,
+    available: true, departure_airport: bucaramanga.airports.sample, arrival_airport: medellin.airports.sample,
+    departure_city: bucaramanga, arrival_city: medellin },
+  { number: 'F404', departure_date: initial_date + 14.hours, arrival_date: initial_date + 18.hours, price: 220.0,
+    available: true, departure_airport: medellin.airports.sample, arrival_airport: cartagena.airports.sample,
+    departure_city: medellin, arrival_city: cartagena },  
+  { number: 'F405', departure_date: initial_date + 23.hours, arrival_date: initial_date + 28.hours, price: 190.0,
+    available: true, departure_airport: cartagena.airports.sample, arrival_airport: cali.airports.sample,
+    departure_city: cartagena, arrival_city: cali },
+  { number: 'F406', departure_date: initial_date + 34.hours, arrival_date: initial_date + 40.hours, price: 210.0,
+    available: true, departure_airport: cali.airports.sample, arrival_airport: barranquilla.airports.sample,
+    departure_city: cali, arrival_city: barranquilla },
+  { number: 'F407', departure_date: initial_date + 47.hours, arrival_date: initial_date + 54.hours, price: 230.0,
+    available: true, departure_airport: barranquilla.airports.sample, arrival_airport: pasto.airports.sample,
+    departure_city: barranquilla, arrival_city: pasto }
+]
+
+flights_data.each do |flight_data|
+  Flight.create!(flight_data.merge(airplane:))
+end
+
+airplane = Airplane.second
+
+bogota = City.find_by(name: 'Bogota')
+bucaramanga = City.find_by(name: 'Bucaramanga')
+medellin = City.find_by(name: 'Medellin')
+cartagena = City.find_by(name: 'Cartagena')
+cali = City.find_by(name: 'Cali')
+barranquilla = City.find_by(name: 'Barranquilla')
+pasto = City.find_by(name: 'Pasto')
+
+initial_date = DateTime.now + 1.day + 1.hours
+
+flights_data = [
+  { number: 'F502', departure_date: initial_date + 2.hours, arrival_date: initial_date + 4.hours, price: 200.0,
+    available: true, departure_airport: bogota.airports.sample, arrival_airport: bucaramanga.airports.sample,
+    departure_city: bogota, arrival_city: bucaramanga },
+  { number: 'F503', departure_date: initial_date + 7.hours, arrival_date: initial_date + 10.hours, price: 180.0,
+    available: true, departure_airport: bucaramanga.airports.sample, arrival_airport: medellin.airports.sample,
+    departure_city: bucaramanga, arrival_city: medellin },
+  { number: 'F504', departure_date: initial_date + 14.hours, arrival_date: initial_date + 18.hours, price: 220.0,
+    available: true, departure_airport: medellin.airports.sample, arrival_airport: cartagena.airports.sample,
+    departure_city: medellin, arrival_city: cartagena },  
+  { number: 'F505', departure_date: initial_date + 23.hours, arrival_date: initial_date + 28.hours, price: 190.0,
+    available: true, departure_airport: cartagena.airports.sample, arrival_airport: cali.airports.sample,
+    departure_city: cartagena, arrival_city: cali },
+  { number: 'F506', departure_date: initial_date + 34.hours, arrival_date: initial_date + 40.hours, price: 210.0,
+    available: true, departure_airport: cali.airports.sample, arrival_airport: barranquilla.airports.sample,
+    departure_city: cali, arrival_city: barranquilla },
+  { number: 'F507', departure_date: initial_date + 47.hours, arrival_date: initial_date + 54.hours, price: 230.0,
+    available: true, departure_airport: barranquilla.airports.sample, arrival_airport: pasto.airports.sample,
+    departure_city: barranquilla, arrival_city: pasto }
+]
+
+flights_data.each do |flight_data|
+  Flight.create!(flight_data.merge(airplane:))
+end
+
+airplane = Airplane.third
+
+bogota = City.find_by(name: 'Bogota')
+bucaramanga = City.find_by(name: 'Bucaramanga')
+medellin = City.find_by(name: 'Medellin')
+cartagena = City.find_by(name: 'Cartagena')
+cali = City.find_by(name: 'Cali')
+barranquilla = City.find_by(name: 'Barranquilla')
+pasto = City.find_by(name: 'Pasto')
+
+initial_date = DateTime.now + 1.day + 5.hours
+
+flights_data = [
+  { number: 'F602', departure_date: initial_date + 2.hours, arrival_date: initial_date + 4.hours, price: 200.0,
+    available: true, departure_airport: bogota.airports.sample, arrival_airport: bucaramanga.airports.sample,
+    departure_city: bogota, arrival_city: bucaramanga },
+  { number: 'F603', departure_date: initial_date + 7.hours, arrival_date: initial_date + 10.hours, price: 180.0,
+    available: true, departure_airport: bucaramanga.airports.sample, arrival_airport: medellin.airports.sample,
+    departure_city: bucaramanga, arrival_city: medellin },
+  { number: 'F604', departure_date: initial_date + 14.hours, arrival_date: initial_date + 18.hours, price: 220.0,
+    available: true, departure_airport: medellin.airports.sample, arrival_airport: cartagena.airports.sample,
+    departure_city: medellin, arrival_city: cartagena },  
+  { number: 'F605', departure_date: initial_date + 23.hours, arrival_date: initial_date + 28.hours, price: 190.0,
+    available: true, departure_airport: cartagena.airports.sample, arrival_airport: cali.airports.sample,
+    departure_city: cartagena, arrival_city: cali },
+  { number: 'F606', departure_date: initial_date + 34.hours, arrival_date: initial_date + 40.hours, price: 210.0,
+    available: true, departure_airport: cali.airports.sample, arrival_airport: barranquilla.airports.sample,
+    departure_city: cali, arrival_city: barranquilla },
+  { number: 'F607', departure_date: initial_date + 47.hours, arrival_date: initial_date + 54.hours, price: 230.0,
+    available: true, departure_airport: barranquilla.airports.sample, arrival_airport: pasto.airports.sample,
+    departure_city: barranquilla, arrival_city: pasto }
+]
+
+flights_data.each do |flight_data|
+  Flight.create!(flight_data.merge(airplane:))
+end
+
+airplane = Airplane.fourth
+
+bogota = City.find_by(name: 'Bogota')
+bucaramanga = City.find_by(name: 'Bucaramanga')
+medellin = City.find_by(name: 'Medellin')
+cartagena = City.find_by(name: 'Cartagena')
+cali = City.find_by(name: 'Cali')
+barranquilla = City.find_by(name: 'Barranquilla')
+pasto = City.find_by(name: 'Pasto')
+
+initial_date = DateTime.now + 2.days + 5.hours
+
+flights_data = [
+  { number: 'F702', departure_date: initial_date + 2.hours, arrival_date: initial_date + 4.hours, price: 200.0,
+    available: true, departure_airport: bogota.airports.sample, arrival_airport: bucaramanga.airports.sample,
+    departure_city: bogota, arrival_city: bucaramanga },
+  { number: 'F703', departure_date: initial_date + 7.hours, arrival_date: initial_date + 10.hours, price: 180.0,
+    available: true, departure_airport: bucaramanga.airports.sample, arrival_airport: medellin.airports.sample,
+    departure_city: bucaramanga, arrival_city: medellin },
+  { number: 'F704', departure_date: initial_date + 14.hours, arrival_date: initial_date + 18.hours, price: 220.0,
+    available: true, departure_airport: medellin.airports.sample, arrival_airport: cartagena.airports.sample,
+    departure_city: medellin, arrival_city: cartagena },  
+  { number: 'F705', departure_date: initial_date + 23.hours, arrival_date: initial_date + 28.hours, price: 190.0,
+    available: true, departure_airport: cartagena.airports.sample, arrival_airport: cali.airports.sample,
+    departure_city: cartagena, arrival_city: cali },
+  { number: 'F706', departure_date: initial_date + 34.hours, arrival_date: initial_date + 40.hours, price: 210.0,
+    available: true, departure_airport: cali.airports.sample, arrival_airport: barranquilla.airports.sample,
+    departure_city: cali, arrival_city: barranquilla },
+  { number: 'F707', departure_date: initial_date + 47.hours, arrival_date: initial_date + 54.hours, price: 230.0,
+    available: true, departure_airport: barranquilla.airports.sample, arrival_airport: pasto.airports.sample,
+    departure_city: barranquilla, arrival_city: pasto }
+]
+
+flights_data.each do |flight_data|
+  Flight.create!(flight_data.merge(airplane:))
+end
+
+airplane = Airplane.last
+
+bogota = City.find_by(name: 'Bogota')
+bucaramanga = City.find_by(name: 'Bucaramanga')
+medellin = City.find_by(name: 'Medellin')
+cartagena = City.find_by(name: 'Cartagena')
+cali = City.find_by(name: 'Cali')
+barranquilla = City.find_by(name: 'Barranquilla')
+pasto = City.find_by(name: 'Pasto')
+
+initial_date = DateTime.now + 3.days + 8.hours
+
+flights_data = [
+  { number: 'F802', departure_date: initial_date + 2.hours, arrival_date: initial_date + 4.hours, price: 200.0,
+    available: true, departure_airport: bogota.airports.sample, arrival_airport: bucaramanga.airports.sample,
+    departure_city: bogota, arrival_city: bucaramanga },
+  { number: 'F803', departure_date: initial_date + 7.hours, arrival_date: initial_date + 10.hours, price: 180.0,
+    available: true, departure_airport: bucaramanga.airports.sample, arrival_airport: medellin.airports.sample,
+    departure_city: bucaramanga, arrival_city: medellin },
+  { number: 'F804', departure_date: initial_date + 14.hours, arrival_date: initial_date + 18.hours, price: 220.0,
+    available: true, departure_airport: medellin.airports.sample, arrival_airport: cartagena.airports.sample,
+    departure_city: medellin, arrival_city: cartagena },  
+  { number: 'F805', departure_date: initial_date + 23.hours, arrival_date: initial_date + 28.hours, price: 190.0,
+    available: true, departure_airport: cartagena.airports.sample, arrival_airport: cali.airports.sample,
+    departure_city: cartagena, arrival_city: cali },
+  { number: 'F806', departure_date: initial_date + 34.hours, arrival_date: initial_date + 40.hours, price: 210.0,
+    available: true, departure_airport: cali.airports.sample, arrival_airport: barranquilla.airports.sample,
+    departure_city: cali, arrival_city: barranquilla },
+  { number: 'F807', departure_date: initial_date + 47.hours, arrival_date: initial_date + 54.hours, price: 230.0,
+    available: true, departure_airport: barranquilla.airports.sample, arrival_airport: pasto.airports.sample,
+    departure_city: barranquilla, arrival_city: pasto }
+]
+
+flights_data.each do |flight_data|
+  Flight.create!(flight_data.merge(airplane:))
+end
+
+airplane = Airplane.last
+
+bogota = City.find_by(name: 'Bogota')
+bucaramanga = City.find_by(name: 'Bucaramanga')
+medellin = City.find_by(name: 'Medellin')
+cartagena = City.find_by(name: 'Cartagena')
+cali = City.find_by(name: 'Cali')
+barranquilla = City.find_by(name: 'Barranquilla')
+pasto = City.find_by(name: 'Pasto')
+
+initial_date = DateTime.now + 4.days + 8.hours
+
+flights_data = [
+  { number: 'F902', departure_date: initial_date + 2.hours, arrival_date: initial_date + 4.hours, price: 200.0,
+    available: true, departure_airport: bogota.airports.sample, arrival_airport: bucaramanga.airports.sample,
+    departure_city: bogota, arrival_city: bucaramanga },
+  { number: 'F903', departure_date: initial_date + 7.hours, arrival_date: initial_date + 10.hours, price: 180.0,
+    available: true, departure_airport: bucaramanga.airports.sample, arrival_airport: medellin.airports.sample,
+    departure_city: bucaramanga, arrival_city: medellin },
+  { number: 'F904', departure_date: initial_date + 14.hours, arrival_date: initial_date + 18.hours, price: 220.0,
+    available: true, departure_airport: medellin.airports.sample, arrival_airport: cartagena.airports.sample,
+    departure_city: medellin, arrival_city: cartagena },  
+  { number: 'F905', departure_date: initial_date + 23.hours, arrival_date: initial_date + 28.hours, price: 190.0,
+    available: true, departure_airport: cartagena.airports.sample, arrival_airport: cali.airports.sample,
+    departure_city: cartagena, arrival_city: cali },
+  { number: 'F906', departure_date: initial_date + 34.hours, arrival_date: initial_date + 40.hours, price: 210.0,
+    available: true, departure_airport: cali.airports.sample, arrival_airport: barranquilla.airports.sample,
+    departure_city: cali, arrival_city: barranquilla },
+  { number: 'F907', departure_date: initial_date + 47.hours, arrival_date: initial_date + 54.hours, price: 230.0,
+    available: true, departure_airport: barranquilla.airports.sample, arrival_airport: pasto.airports.sample,
+    departure_city: barranquilla, arrival_city: pasto }
+]
+
+flights_data.each do |flight_data|
+  Flight.create!(flight_data.merge(airplane:))
+end
+
+airplane = Airplane.last
+
+bogota = City.find_by(name: 'Bogota')
+bucaramanga = City.find_by(name: 'Bucaramanga')
+medellin = City.find_by(name: 'Medellin')
+cartagena = City.find_by(name: 'Cartagena')
+cali = City.find_by(name: 'Cali')
+barranquilla = City.find_by(name: 'Barranquilla')
+pasto = City.find_by(name: 'Pasto')
+
+initial_date = DateTime.now + 5.days + 8.hours
+
+flights_data = [
+  { number: 'F112', departure_date: initial_date + 2.hours, arrival_date: initial_date + 4.hours, price: 200.0,
+    available: true, departure_airport: bogota.airports.sample, arrival_airport: bucaramanga.airports.sample,
+    departure_city: bogota, arrival_city: bucaramanga },
+  { number: 'F113', departure_date: initial_date + 7.hours, arrival_date: initial_date + 10.hours, price: 180.0,
+    available: true, departure_airport: bucaramanga.airports.sample, arrival_airport: medellin.airports.sample,
+    departure_city: bucaramanga, arrival_city: medellin },
+  { number: 'F114', departure_date: initial_date + 14.hours, arrival_date: initial_date + 18.hours, price: 220.0,
+    available: true, departure_airport: medellin.airports.sample, arrival_airport: cartagena.airports.sample,
+    departure_city: medellin, arrival_city: cartagena },  
+  { number: 'F115', departure_date: initial_date + 23.hours, arrival_date: initial_date + 28.hours, price: 190.0,
+    available: true, departure_airport: cartagena.airports.sample, arrival_airport: cali.airports.sample,
+    departure_city: cartagena, arrival_city: cali },
+  { number: 'F116', departure_date: initial_date + 34.hours, arrival_date: initial_date + 40.hours, price: 210.0,
+    available: true, departure_airport: cali.airports.sample, arrival_airport: barranquilla.airports.sample,
+    departure_city: cali, arrival_city: barranquilla },
+  { number: 'F117', departure_date: initial_date + 47.hours, arrival_date: initial_date + 54.hours, price: 230.0,
+    available: true, departure_airport: barranquilla.airports.sample, arrival_airport: pasto.airports.sample,
+    departure_city: barranquilla, arrival_city: pasto }
+]
+
+flights_data.each do |flight_data|
+  Flight.create!(flight_data.merge(airplane:))
 end
