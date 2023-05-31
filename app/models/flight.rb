@@ -18,7 +18,7 @@ class Flight < ApplicationRecord
   scope :by_arrival_city, ->(arrival_city_id) { where(arrival_city_id:) }
 
   def self.search_departure_flights_for(filter_params)
-    flights = Flight.availables
+    flights = Flight.available
     if filter_params[:departure_date].present?
       flights = flights.by_departure_date(filter_params[:departure_date].to_date)
     end
