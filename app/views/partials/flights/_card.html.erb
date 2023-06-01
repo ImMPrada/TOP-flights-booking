@@ -17,5 +17,10 @@
         arrival airport: <%= flight.arrival_airport.name %> | arrival date: <%= flight.arrival_date %>
       </span>
     </div>
+    <%= link_to(
+      "Book this flight",
+      new_flight_booking_path(flight)) 
+    %>
   </div>
 </div>
+
