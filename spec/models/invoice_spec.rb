@@ -7,6 +7,6 @@ RSpec.describe Invoice, type: :model do
   end
 
   describe 'associations' do
-    it { should belong_to(:itinerary) }
+    it { should belong_to(:booking) }
   end
 end

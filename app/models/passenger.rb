@@ -1,7 +1,7 @@
 class Passenger < ApplicationRecord
   belongs_to :user, optional: true
-  has_many :itinerary_passengers
-  has_many :itineraries, through: :itinerary_passengers
+  has_many :booking_passengers
+  has_many :bookings, through: :booking_passengers
 
   validates :first_name, presence: true
   validates :last_name, presence: true

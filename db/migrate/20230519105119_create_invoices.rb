@@ -4,7 +4,7 @@ class CreateInvoices < ActiveRecord::Migration[7.0]
       t.float :total_amount, null: false
       t.boolean :paid, null: false, default: false
 
-      t.references :itinerary, null: false, foreign_key: true
+      t.references :booking, null: false, foreign_key: true
 
       t.timestamps
     end

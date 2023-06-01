@@ -4,9 +4,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_one :passenger
-  has_many :itineraries
-  has_many :invoices, through: :itineraries
-  has_many :flights, through: :itineraries
+  has_many :bookings
+  has_many :invoices, through: :bookings
+  has_many :flights, through: :bookings
 
   validates :email, presence: true, uniqueness: true
 end
