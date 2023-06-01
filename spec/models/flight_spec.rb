@@ -12,8 +12,8 @@ RSpec.describe Flight, type: :model do
     it { should belong_to(:airplane) }
     it { should belong_to(:departure_airport).class_name('Airport') }
     it { should belong_to(:arrival_airport).class_name('Airport') }
-    it { should have_many(:itinerary_flights) }
-    it { should have_many(:itineraries).through(:itinerary_flights) }
+    it { should have_many(:booking_flights) }
+    it { should have_many(:bookings).through(:booking_flights) }
     it { should belong_to(:departure_city).class_name('City') }
     it { should belong_to(:arrival_city).class_name('City') }
   end
@@ -32,7 +32,7 @@ RSpec.describe Flight, type: :model do
 
     describe '.availables' do
       it 'should return all available flights' do
-        expect(Flight.availables.count).to eq(3)
+        expect(Flight.available.count).to eq(2)
       end
     end
 

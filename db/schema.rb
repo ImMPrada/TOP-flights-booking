@@ -28,6 +28,33 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_24_170840) do
     t.index ["city_id"], name: "index_airports_on_city_id"
   end
 
+  create_table "booking_flights", force: :cascade do |t|
+    t.bigint "booking_id", null: false
+    t.bigint "flight_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["booking_id"], name: "index_booking_flights_on_booking_id"
+    t.index ["flight_id"], name: "index_booking_flights_on_flight_id"
+  end
+
+  create_table "booking_passengers", force: :cascade do |t|
+    t.bigint "booking_id", null: false
+    t.bigint "passenger_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["booking_id"], name: "index_booking_passengers_on_booking_id"
+    t.index ["passenger_id"], name: "index_booking_passengers_on_passenger_id"
+  end
+
+  create_table "bookings", force: :cascade do |t|
+    t.string "number", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["number"], name: "index_bookings_on_number", unique: true
+    t.index ["user_id"], name: "index_bookings_on_user_id"
+  end
+
   create_table "cities", force: :cascade do |t|
     t.string "name", null: false
     t.bigint "country_id", null: false
@@ -70,37 +97,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_24_170840) do
   create_table "invoices", force: :cascade do |t|
     t.float "total_amount", null: false
     t.boolean "paid", default: false, null: false
-    t.bigint "itinerary_id", null: false
+    t.bigint "booking_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["itinerary_id"], name: "index_invoices_on_itinerary_id"
-  end
-
-  create_table "itineraries", force: :cascade do |t|
-    t.string "number", null: false
-    t.bigint "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["number"], name: "index_itineraries_on_number", unique: true
-    t.index ["user_id"], name: "index_itineraries_on_user_id"
-  end
-
-  create_table "itinerary_flights", force: :cascade do |t|
-    t.bigint "itinerary_id", null: false
-    t.bigint "flight_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["flight_id"], name: "index_itinerary_flights_on_flight_id"
-    t.index ["itinerary_id"], name: "index_itinerary_flights_on_itinerary_id"
-  end
-
-  create_table "itinerary_passengers", force: :cascade do |t|
-    t.bigint "itinerary_id", null: false
-    t.bigint "passenger_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["itinerary_id"], name: "index_itinerary_passengers_on_itinerary_id"
-    t.index ["passenger_id"], name: "index_itinerary_passengers_on_passenger_id"
+    t.index ["booking_id"], name: "index_invoices_on_booking_id"
   end
 
   create_table "passenger_seats", force: :cascade do |t|
@@ -149,18 +149,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_24_170840) do
   end
 
   add_foreign_key "airports", "cities"
+  add_foreign_key "booking_flights", "bookings"
+  add_foreign_key "booking_flights", "flights"
+  add_foreign_key "booking_passengers", "bookings"
+  add_foreign_key "booking_passengers", "passengers"
+  add_foreign_key "bookings", "users"
   add_foreign_key "cities", "countries"
   add_foreign_key "flights", "airplanes"
   add_foreign_key "flights", "airports", column: "arrival_airport_id"
   add_foreign_key "flights", "airports", column: "departure_airport_id"
   add_foreign_key "flights", "cities", column: "arrival_city_id"
   add_foreign_key "flights", "cities", column: "departure_city_id"
-  add_foreign_key "invoices", "itineraries"
-  add_foreign_key "itineraries", "users"
-  add_foreign_key "itinerary_flights", "flights"
-  add_foreign_key "itinerary_flights", "itineraries"
-  add_foreign_key "itinerary_passengers", "itineraries"
-  add_foreign_key "itinerary_passengers", "passengers"
+  add_foreign_key "invoices", "bookings"
   add_foreign_key "passenger_seats", "passengers"
   add_foreign_key "passenger_seats", "seats"
   add_foreign_key "passengers", "users"

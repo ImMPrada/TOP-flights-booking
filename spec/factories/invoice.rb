@@ -4,6 +4,6 @@ FactoryBot.define do
     paid { 'true' }
     total_amount { Faker::Number.decimal(l_digits: 2) }
 
-    association :itinerary
+    association :booking
   end
 end
