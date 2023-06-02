@@ -8,4 +8,6 @@ Rails.application.routes.draw do
   resources :flights, only: [:index] do
     resources :bookings, only: %i[new create]
   end
+
+  resources :bookings, only: %i[show]
 end
