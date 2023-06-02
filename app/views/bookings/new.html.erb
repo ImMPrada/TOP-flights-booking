@@ -1,1 +1,33 @@
 bookings#new
+
+<%= form_with(
+  model: @booking,
+  url: flight_bookings_path(@flight),
+  data: {
+    turbo: false,
+  },
+  method: :post,
+  class: "min-w-full min-h-full flex flex-col gap-3 justify-between"
+) do |form|%>
+
+  <% @booking.passengers.each do |passenger| %>
+    <div class="min-w-full border pt-3 mt-3 px-6">
+      <% if passenger == @booking.passengers.first %>
+        <h3 class="text-xl font-bold">Logged in passenger information</h3>
+      <% else %>
+        <h3 class="text-xl font-bold">Passenger information</h3>
+      <% end %>
+      <%= render(
+        partial: 'partials/passenger_form',
+        locals: {
+          passenger:,
+          form:
+        }
+      ) %>
+    </div>
+  <% end %>
+
+  <div class='min-w-full flex justify-end'>
+    <%= form.submit('Next Step', { class: 'btn-next'}) %>
+  </div>
+<% end %>
