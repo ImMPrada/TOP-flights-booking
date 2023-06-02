@@ -12,8 +12,7 @@ RSpec.describe Flight, type: :model do
     it { should belong_to(:airplane) }
     it { should belong_to(:departure_airport).class_name('Airport') }
     it { should belong_to(:arrival_airport).class_name('Airport') }
-    it { should have_many(:booking_flights) }
-    it { should have_many(:bookings).through(:booking_flights) }
+    it { should have_many(:bookings) }
     it { should belong_to(:departure_city).class_name('City') }
     it { should belong_to(:arrival_city).class_name('City') }
   end
