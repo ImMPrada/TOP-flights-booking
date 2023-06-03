@@ -8,15 +8,19 @@ class BookingsController < ApplicationController
   end
 
   def create
-    return render :new, alert: 'nope' unless booking.save
-    unless update_current_user_passenger
+    booking_creator.build
+
+    unless booking_creator.booking_valid?
       return redirect_to_booking_with_notice('Please check the logged-in passenger information')
     end
-    unless add_passengers_to_booking
+    unless booking_creator.update_current_user_passenger
+      return redirect_to_booking_with_notice('Please check the logged-in passenger information')
+    end
+    unless booking_creator.add_passengers_to_booking
       return redirect_to_booking_with_notice('There is empty information of some(s) passengr(s)')
     end
 
-    redirect_to booking_path(booking)
+    redirect_to booking_path(booking_creator.commit)
   end
 
   def show
@@ -25,16 +29,22 @@ class BookingsController < ApplicationController
 
   private
 
+  def booking_creator
+    @booking_creator ||= ModelsServices::Creators::Bookings.new(
+      {
+        flight:,
+        booking_build_params: booking_params.to_h,
+        user: current_user
+      }
+    )
+  end
+
   def current_user_passenger
     @current_user_passenger || current_user.passenger
   end
 
   def flight
     @flight ||= Flight.find(params[:flight_id])
-  end
-
-  def booking
-    @booking ||= build_booking
   end
 
   def amount_of_passengers
@@ -72,29 +82,5 @@ class BookingsController < ApplicationController
     return @booking.passengers << current_user_passenger if current_user_passenger
 
     @booking.passengers << Passenger.new(user: current_user)
-  end
-
-  def build_booking
-    @booking = Booking.new(
-      number: "#{flight.number}-#{DateTime.now.to_i}",
-      user: current_user,
-      flight:
-    )
-  end
-
-  def add_passengers_to_booking
-    extra_passengers = amount_of_passengers - 1
-    return unless extra_passengers.positive?
-
-    (1..extra_passengers).each do |index|
-      passenger = Passenger.new(booking_params[:passengers_attributes][index.to_s])
-      @booking.passengers << passenger and next if passenger.save
-    end
-  end
-
-  def update_current_user_passenger
-    current_user_passenger = current_user.passenger
-
-    current_user_passenger.update(booking_params[:passengers_attributes]['0'])
   end
 end
