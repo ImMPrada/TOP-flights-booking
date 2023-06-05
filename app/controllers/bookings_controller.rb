@@ -2,25 +2,18 @@ class BookingsController < ApplicationController
   before_action :authenticate_user!
 
   def new
-    @booking = Booking.new
-    add_passangers_fields_to_booking
-    @booking.flight = flight
+    @booking = ModelsServices::Creators::Bookings.whit_just_amount_of_passengers(
+      flight:,
+      amount_of_passengers: params[:amount_of_passengers].to_i,
+      user: current_user
+    ).build
   end
 
   def create
     booking_creator.build
-
-    unless booking_creator.booking_valid?
-      return redirect_to_booking_with_notice('Please check the logged-in passenger information')
-    end
-    unless booking_creator.update_current_user_passenger
-      return redirect_to_booking_with_notice('Please check the logged-in passenger information')
-    end
-    unless booking_creator.add_passengers_to_booking
-      return redirect_to_booking_with_notice('There is empty information of some(s) passengr(s)')
-    end
-
     redirect_to booking_path(booking_creator.commit)
+  rescue StandardError => e
+    redirect_to_booking_with_notice(e.message)
   end
 
   def show
@@ -31,11 +24,9 @@ class BookingsController < ApplicationController
 
   def booking_creator
     @booking_creator ||= ModelsServices::Creators::Bookings.new(
-      {
-        flight:,
-        booking_build_params: booking_params.to_h,
-        user: current_user
-      }
+      flight:,
+      booking_build_params: booking_params.to_h,
+      user: current_user
     )
   end
 
@@ -66,21 +57,5 @@ class BookingsController < ApplicationController
                                 identification_number
                                 email]
     )
-  end
-
-  def add_passangers_fields_to_booking
-    add_current_user_to_passengers
-    extra_passengers = amount_of_passengers - 1
-    return unless extra_passengers.positive?
-
-    (1..extra_passengers).each do
-      @booking.passengers << Passenger.new
-    end
-  end
-
-  def add_current_user_to_passengers
-    return @booking.passengers << current_user_passenger if current_user_passenger
-
-    @booking.passengers << Passenger.new(user: current_user)
   end
 end
