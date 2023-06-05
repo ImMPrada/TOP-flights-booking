@@ -74,64 +74,18 @@ RSpec.describe ModelsServices::Creators::Bookings do
         expect(booking_creator.build).to be_a(Booking)
       end
     end
-  end
 
-  describe '#add_passengers_to_booking' do
-    before { booking_creator.build }
-
-    describe 'when user passenger information is invalid' do
-      let(:booking_build_params) do
-        {
-          passengers_attributes: {
-            '0': {
-              first_name: '',
-              last_name: passenger.last_name,
-              identification_number: passenger.identification_number,
-              email: passenger.email
-            },
-            '1': {
-              first_name: Faker::Name.first_name,
-              last_name: Faker::Name.last_name,
-              identification_number: Faker::Number.number.to_s,
-              email: Faker::Internet.email
-            }
-          }
-        }
+    describe 'when everything is ok' do
+      it 'returns a booking with the correct flight' do
+        expect(booking_creator.build.flight).to eq(flight)
       end
 
-      it 'raises error' do
-        expect { booking_creator.add_passengers_to_booking }.to raise_error(StandardError)
-      end
-    end
-
-    describe 'when passengers information is invalid' do
-      let(:booking_build_params) do
-        {
-          passengers_attributes: {
-            '0': {
-              first_name: passenger.first_name,
-              last_name: passenger.last_name,
-              identification_number: passenger.identification_number,
-              email: passenger.email
-            },
-            '1': {
-              first_name: Faker::Name.first_name,
-              last_name: Faker::Name.last_name,
-              identification_number: '',
-              email: Faker::Internet.email
-            }
-          }
-        }
+      it 'returns a booking with the correct user' do
+        expect(booking_creator.build.user).to eq(user)
       end
 
-      it 'raises error' do
-        expect { booking_creator.add_passengers_to_booking }.to raise_error(StandardError)
-      end
-    end
-
-    describe 'when passengers information is valid' do
-      it 'returns the booking passengers' do
-        expect(booking_creator.add_passengers_to_booking).to be_a(ActiveRecord::Associations::CollectionProxy)
+      it 'returns a booking with the correct amount of passengers' do
+        expect(booking_creator.build.passengers.size).to eq(2)
       end
     end
   end
@@ -159,14 +113,61 @@ RSpec.describe ModelsServices::Creators::Bookings do
       end
     end
 
-    describe 'when everything is ok' do
-      before do
-        booking_creator.build
-        booking_creator.add_passengers_to_booking
+    describe 'when user passenger information is invalid' do
+      let(:booking_build_params) do
+        {
+          passengers_attributes: {
+            '0': {
+              first_name: passenger.first_name,
+              last_name: passenger.last_name,
+              identification_number: '',
+              email: passenger.email
+            },
+            '1': {
+              first_name: Faker::Name.first_name,
+              last_name: Faker::Name.last_name,
+              identification_number: Faker::Number.number.to_s,
+              email: Faker::Internet.email
+            }
+          }
+        }
       end
 
-      it 'returns the booking' do
-        expect(booking_creator.commit).to be_a(Booking)
+      before do
+        booking_creator.build
+      end
+
+      it 'raises error' do
+        expect { booking_creator.commit }.to raise_error(StandardError)
+      end
+    end
+
+    describe 'when passenger information is invalid' do
+      let(:booking_build_params) do
+        {
+          passengers_attributes: {
+            '0': {
+              first_name: passenger.first_name,
+              last_name: passenger.last_name,
+              identification_number: passenger.identification_number,
+              email: passenger.email
+            },
+            '1': {
+              first_name: Faker::Name.first_name,
+              last_name: Faker::Name.last_name,
+              identification_number: '',
+              email: Faker::Internet.email
+            }
+          }
+        }
+      end
+
+      before do
+        booking_creator.build
+      end
+
+      it 'raises error' do
+        expect { booking_creator.commit }.to raise_error(StandardError)
       end
     end
   end
