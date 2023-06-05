@@ -135,4 +135,39 @@ RSpec.describe ModelsServices::Creators::Bookings do
       end
     end
   end
+
+  describe '#commit' do
+    describe 'when flight is nil' do
+      let(:flight) { nil }
+
+      it 'raises error' do
+        expect { booking_creator.commit }.to raise_error(StandardError)
+      end
+    end
+
+    describe 'when user is nil' do
+      let(:user) { nil }
+
+      it 'raises error' do
+        expect { booking_creator.commit }.to raise_error(StandardError)
+      end
+    end
+
+    describe 'when no passenger added' do
+      it 'raises error' do
+        expect { booking_creator.commit }.to raise_error(StandardError)
+      end
+    end
+
+    describe 'when everything is ok' do
+      before do
+        booking_creator.build
+        booking_creator.add_passengers_to_booking
+      end
+
+      it 'returns the booking' do
+        expect(booking_creator.commit).to be_a(Booking)
+      end
+    end
+  end
 end
