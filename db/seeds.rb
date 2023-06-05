@@ -24,6 +24,8 @@ require_relative 'seeds/flights_by_airplanes/seventh_airplane'
 require 'byebug'
 
 # Destroy all existing records
+BookingPassenger.destroy_all
+Booking.destroy_all
 Flight.destroy_all
 Airport.destroy_all
 City.destroy_all
