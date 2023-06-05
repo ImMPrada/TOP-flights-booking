@@ -11,11 +11,10 @@ RSpec.describe ModelsServices::Creators::Bookings do
     {
       passengers_attributes: {
         '0': {
-          id: '1',
-          first_name: 'eugeniolo',
-          last_name: 'prada',
-          identification_number: '1090416331',
-          email: 'miguel@mail.com'
+          first_name: passenger.first_name,
+          last_name: passenger.last_name,
+          identification_number: passenger.identification_number,
+          email: passenger.email
         },
         '1': {
           first_name: Faker::Name.first_name,
@@ -76,6 +75,64 @@ RSpec.describe ModelsServices::Creators::Bookings do
       end
     end
   end
+
+  describe '#add_passengers_to_booking' do
+    before { booking_creator.build }
+
+    describe 'when user passenger information is invalid' do
+      let(:booking_build_params) do
+        {
+          passengers_attributes: {
+            '0': {
+              first_name: '',
+              last_name: passenger.last_name,
+              identification_number: passenger.identification_number,
+              email: passenger.email
+            },
+            '1': {
+              first_name: Faker::Name.first_name,
+              last_name: Faker::Name.last_name,
+              identification_number: Faker::Number.number.to_s,
+              email: Faker::Internet.email
+            }
+          }
+        }
+      end
+
+      it 'raises error' do
+        expect { booking_creator.add_passengers_to_booking }.to raise_error(StandardError)
+      end
+    end
+
+    describe 'when passengers information is invalid' do
+      let(:booking_build_params) do
+        {
+          passengers_attributes: {
+            '0': {
+              first_name: passenger.first_name,
+              last_name: passenger.last_name,
+              identification_number: passenger.identification_number,
+              email: passenger.email
+            },
+            '1': {
+              first_name: Faker::Name.first_name,
+              last_name: Faker::Name.last_name,
+              identification_number: '',
+              email: Faker::Internet.email
+            }
+          }
+        }
+      end
+
+      it 'raises error' do
+        expect { booking_creator.add_passengers_to_booking }.to raise_error(StandardError)
+      end
+    end
+
+    describe 'when passengers information is valid' do
+      it 'returns the booking passengers' do
+        expect(booking_creator.add_passengers_to_booking).to be_a(ActiveRecord::Associations::CollectionProxy)
+      end
+    end
+  end
 end
-
-
