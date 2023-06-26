@@ -17,5 +17,7 @@
         arrival airport: <%= flight.arrival_airport.name %> | arrival date: <%= flight.arrival_date %>
       </span>
     </div>
+    <%= form.button("BOOK THIS FLIGHT", type: :submit, name: "submit_flight_id", value: flight.id) %>
   </div>
 </div>
+

@@ -28,15 +28,31 @@ flights#index
         value: params[:departure_date]
       ) %>
     </div>
+    <div class="w-full flex flex-col gap-2">
+      <%= f.label :amount_of_passengers %>
+      <%= f.number_field(
+        :amount_of_passengers,
+        class: 'w-full',
+        value: params[:amount_of_passengers] || 1
+      ) %>
+    </div>
     <div class="min-w-full">
       <%= f.submit 'Search', class: 'w-full' %>
     </div>
+  </div>
+
+
+  <div class="min-w-full">
+    <%= link_to "Clear filter", flights_path, class: 'w-full' %>
+  </div>
+
+  <div id="flights-index-list" class="min-w-full flex flex-col gap-4 mt-6">
+    <%= render(
+      partial: 'partials/flights/list',
+      locals: {
+        flights: @flights,
+        form: f
+      }
+    ) %>
+  </div>
 <% end %>
-
-<div class="min-w-full">
-  <%= link_to "Clear filter", flights_path, class: 'w-full' %>
-</div>
-
-<div id="flights-index-list" class="min-w-full flex flex-col gap-4 mt-6">
-  <%= render partial: 'partials/flights/list', locals: { flights: @flights } %>
-</div>

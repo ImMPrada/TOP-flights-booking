@@ -1,0 +1,64 @@
+<div class="min-w-full min-h-full flex flex-col gap-3">
+  <h2 class="text-xl font-bold inline-block">Flight information:</h2>
+  <span class="inline-block">
+    <span class="font-bold inline">number:</span>
+    <span class="inline">
+      <%=  @booking.flight.number %>
+    </span>
+  </span>
+  <span class="inline-block">
+    <span class="font-bold inline">departure city/airport:</span>
+    <span class="inline">
+      <%= "#{ @booking.flight.departure_city.name }/#{ @booking.flight.departure_airport.name }" %>
+    </span>
+  </span>
+  <span class="inline-block">
+    <span class="font-bold inline">departure date:</span>
+    <span class="inline">
+      <%= "#{ @booking.flight.departure_date }" %>
+    </span>
+  </span>
+  <span class="inline-block">
+    <span class="font-bold inline">arrival city/airport:</span>
+    <span class="inline">
+      <%= "#{ @booking.flight.arrival_city.name }/#{ @booking.flight.arrival_airport.name }" %>
+    </span>
+  </span>
+  <span class="inline-block">
+    <span class="font-bold inline">arrival date:</span>
+    <span class="inline">
+      <%= "#{ @booking.flight.arrival_date }" %>
+    </span>
+  </span>
+  <span class="inline-block">
+    <span class="font-bold inline">seats:</span>
+    <span class="inline">
+      <%= "#{ params[:amount_of_passengers] }" %>
+    </span>
+  </span>
+  <%= form_with(
+    model: @booking,
+    url: flight_bookings_path(
+      @booking.flight,
+      { amount_of_passengers: @booking.passengers.size }
+    ),
+    data: {
+      turbo: false,
+    },
+    method: :post,
+    class: "min-w-full min-h-full flex flex-col gap-3 justify-between py-6"
+  ) do |form|%>
+
+    <%= form.fields_for :passengers do |passenger| %>
+      <%= render(
+        partial: 'partials/passenger_form_fields',
+        locals: { passenger: },
+        current_user:
+      ) %>
+    <% end %>
+
+    <div class='min-w-full flex justify-end'>
+      <%= form.submit('Next Step', { class: 'btn-next'}) %>
+    </div>
+  <% end %>
+</div>

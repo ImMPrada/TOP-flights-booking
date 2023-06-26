@@ -4,8 +4,7 @@ class Flight < ApplicationRecord
   belongs_to :arrival_airport, class_name: 'Airport'
   belongs_to :departure_city, class_name: 'City'
   belongs_to :arrival_city, class_name: 'City'
-  has_many :booking_flights
-  has_many :bookings, through: :booking_flights
+  has_many :bookings
 
   validates :number, presence: true, uniqueness: true
   validates :departure_date, presence: true

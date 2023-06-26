@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_24_170840) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_02_154600) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -28,15 +28,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_24_170840) do
     t.index ["city_id"], name: "index_airports_on_city_id"
   end
 
-  create_table "booking_flights", force: :cascade do |t|
-    t.bigint "booking_id", null: false
-    t.bigint "flight_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["booking_id"], name: "index_booking_flights_on_booking_id"
-    t.index ["flight_id"], name: "index_booking_flights_on_flight_id"
-  end
-
   create_table "booking_passengers", force: :cascade do |t|
     t.bigint "booking_id", null: false
     t.bigint "passenger_id", null: false
@@ -51,6 +42,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_24_170840) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "flight_id"
+    t.index ["flight_id"], name: "index_bookings_on_flight_id"
     t.index ["number"], name: "index_bookings_on_number", unique: true
     t.index ["user_id"], name: "index_bookings_on_user_id"
   end
@@ -149,10 +142,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_24_170840) do
   end
 
   add_foreign_key "airports", "cities"
-  add_foreign_key "booking_flights", "bookings"
-  add_foreign_key "booking_flights", "flights"
   add_foreign_key "booking_passengers", "bookings"
   add_foreign_key "booking_passengers", "passengers"
+  add_foreign_key "bookings", "flights"
   add_foreign_key "bookings", "users"
   add_foreign_key "cities", "countries"
   add_foreign_key "flights", "airplanes"
