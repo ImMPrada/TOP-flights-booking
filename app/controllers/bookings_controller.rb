@@ -2,7 +2,7 @@ class BookingsController < ApplicationController
   before_action :authenticate_user!
 
   def new
-    @booking = ModelsServices::Creators::Bookings.whit_just_amount_of_passengers(
+    @booking = Bookings::Creator.with_just_amount_of_passengers(
       flight:,
       amount_of_passengers: params[:amount_of_passengers].to_i,
       user: current_user
@@ -23,7 +23,7 @@ class BookingsController < ApplicationController
   private
 
   def booking_creator
-    @booking_creator ||= ModelsServices::Creators::Bookings.new(
+    @booking_creator ||= Bookings::Creator.new(
       flight:,
       booking_build_params: booking_params.to_h,
       user: current_user
