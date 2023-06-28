@@ -64,6 +64,7 @@ group :development, :test do
   gem 'rubocop-rspec'
   gem 'shoulda-matchers', '~> 5.0'
   gem 'simplecov'
+  gem "letter_opener"
 end
 
 group :development do
