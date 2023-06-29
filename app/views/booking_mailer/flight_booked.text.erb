@@ -1,0 +1,17 @@
+Your flight is booked
+
+Hello, <%= @passenger.first_name %>
+
+Your flight is booked. Here are the details:
+- Flight: <%= @booking.flight.number %>
+- Date: <%= @booking.flight.departure_date %>
+- Departure:
+  <%= @booking.flight.departure_airport.city.name %> - <%= @booking.flight.departure_airport.city.country.name %>
+  airport: <%= @booking.flight.departure_airport.name %>
+- Destination:
+  <%= @booking.flight.arrival_airport.city.name %> - <%= @booking.flight.arrival_airport.city.country.name %>
+  airport: <%= @booking.flight.arrival_airport.name %>
+
+you can see your booking details here: <%= booking_url(@booking) %>
+
+Thank you for booking with us!

@@ -1,0 +1,29 @@
+<h1>Your flight is booked</h1>
+
+<p>
+  Hello, <%= @passenger.first_name %>
+
+  Your flight is booked. Here are the details:</br>
+  - Flight: <%= @booking.flight.number %></br>
+  - Date: <%= @booking.flight.departure_date %></br>
+  - Departure:</br>
+    <%= @booking.flight.departure_airport.city.name %> - <%= @booking.flight.departure_airport.city.country.name %></br>
+    airport: <%= @booking.flight.departure_airport.name %></br>
+  - Destination:</br>
+    <%= @booking.flight.arrival_airport.city.name %> - <%= @booking.flight.arrival_airport.city.country.name %></br>
+    airport: <%= @booking.flight.arrival_airport.name %></br>
+</br>
+  you can see your booking details here: <%= booking_url(@booking) %></br>
+</br>
+</br>
+  Thank you for booking with us!
+</p>
+
+<style>
+  h1 {
+    font-size: 20px;
+  }
+  p {
+    font-size: 16px;
+  }
+</style>

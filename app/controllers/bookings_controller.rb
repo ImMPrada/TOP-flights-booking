@@ -11,7 +11,10 @@ class BookingsController < ApplicationController
 
   def create
     booking_creator.build
-    redirect_to booking_path(booking_creator.commit)
+    booking = booking_creator.commit
+    redirect_to booking_path(booking)
+
+    SendBookingMailToPassengersJob.perform_later(booking)
   rescue StandardError => e
     redirect_to_booking_with_notice(e.message)
   end
